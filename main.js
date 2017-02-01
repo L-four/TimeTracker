@@ -7,9 +7,27 @@ const BrowserWindow = electron.BrowserWindow
 const path = require('path')
 const url = require('url')
 
+const sqlite3 = require('sqlite3').verbose()
+const db = new sqlite3.Database(path.join(__dirname, 'database.db'));
+
+const fs = require('fs')
+
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
+
+
+fs.readFile(path.join(__dirname, 'database.schema.sql'), function (err, data) {
+  if (err) {
+    throw err;
+  }
+  console.log(data.toString());
+  sqlite3.serialize(function () {
+    db.run(data.toString());
+  });
+});
+
+
 
 function createWindow () {
   // Create the browser window.
@@ -21,9 +39,6 @@ function createWindow () {
     protocol: 'file:',
     slashes: true
   }))
-
-  // Open the DevTools.
-  mainWindow.webContents.openDevTools()
 
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {

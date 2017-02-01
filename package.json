@@ -1,12 +1,16 @@
 {
-  "name": "TimeTracker App",
+  "name": "time-tracker-app",
   "version": "1.0.0",
   "description": "A TimeTracker Electron application",
   "main": "main.js",
   "scripts": {
-    "start": "electron .",
+    "start": "electron ."
   },
   "devDependencies": {
-    "electron": "^1.4.1"
+    "electron": "^1.4.1",
+    "electron-rebuild": "^1.5.7"
+  },
+  "dependencies": {
+    "sqlite3": "^3.1.8"
   }
 }
