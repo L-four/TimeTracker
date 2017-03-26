@@ -22,8 +22,13 @@ fs.readFile(path.join(__dirname, 'database.schema.sql'), function (err, data) {
     throw err;
   }
   console.log(data.toString());
-  sqlite3.serialize(function () {
-    db.run(data.toString());
+  db.serialize(function () {
+    data.toString().split(';').map(function (item, i) {
+      console.log([i, item]);
+      if (item.length) {
+        db.run(item);
+      }
+    })
   });
 });
 
@@ -31,15 +36,14 @@ fs.readFile(path.join(__dirname, 'database.schema.sql'), function (err, data) {
 
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 800, height: 600})
-
+  mainWindow = new BrowserWindow({width: 800, height: 600, webPreferences: {webSecurity: false}})
+  console.log(__dirname)
   // and load the index.html of the app.
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'angular/dist/index.html'),
     protocol: 'file:',
     slashes: true
   }))
-
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
     // Dereference the window object, usually you would store windows

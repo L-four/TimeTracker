@@ -1,0 +1,29 @@
+<md-card class="app-input-section">
+
+    <form [formGroup]="myForm" novalidate (ngSubmit)="save($event, myForm.value, myForm.valid)">
+
+        <md-input-container>
+            <input type="text" mdInput formControlName="activity" [mdAutocomplete]="activityAuto" placeholder="Activity" name="activity">
+        </md-input-container>
+
+        <md-autocomplete #activityAuto="mdAutocomplete">
+            <md-option *ngFor="let activity of filteredActivities | async" [value]="activity">
+            {{ activity }}
+            </md-option>
+        </md-autocomplete>
+
+        <md-input-container>
+            <input type="text" mdInput formControlName="tags" [mdAutocomplete]="tagAuto" placeholder="Tags" name="tags">
+        </md-input-container>
+
+        <md-autocomplete #tagAuto="mdAutocomplete">
+            <md-option *ngFor="let tag of filteredTags | async" [value]="tag">
+                {{ tag }}
+            </md-option>
+        </md-autocomplete>
+
+
+        <button name="submit" type="submit" md-raised-button color="primary">Start Tracking</button>
+
+    </form>
+</md-card>

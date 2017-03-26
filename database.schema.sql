@@ -1,9 +1,26 @@
-CREATE TABLE `activity` (
+CREATE TABLE IF NOT EXISTS `activity` (
   `id`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
   `name`	TEXT NOT NULL UNIQUE
 );
 
-CREATE TABLE `tag` (
+CREATE TABLE IF NOT EXISTS `tag` (
   `id`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
   `name`	TEXT NOT NULL UNIQUE
+);
+
+CREATE TABLE IF NOT EXISTS `timeperiod` (
+	`start`	INTEGER,
+	`end`	INTEGER,
+	`id`	INTEGER NOT NULL,
+	PRIMARY KEY(`id`)
+);
+
+CREATE TABLE IF NOT EXISTS `timeperiod_activities` (
+	`activity`	INTEGER,
+	`timeperiod`	INTEGER
+);
+
+CREATE TABLE IF NOT EXISTS `timeperiod_tag` (
+	`activity`	INTEGER,
+	`timeperiod`	INTEGER
 );

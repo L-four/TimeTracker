@@ -1,0 +1,14 @@
+<md-card>
+    <md-list>
+        <md-list-item *ngFor="let period of timePeriods | async">
+            {{period.activity.name}}: {{period.start | date:'shortTime' }} - {{period.end | date:'shortTime' }}
+            <md-chip-list>
+                <md-chip color="accent" *ngFor="let tag of period.tags">
+                    {{tag.name}}
+                </md-chip>
+                <button  md-icon-button color="accent" type="submit" [value]="period.id">Home</button>
+            </md-chip-list>
+        </md-list-item>
+        <md-list-item *ngIf="!timePeriods.isEmpty">No List items</md-list-item>
+    </md-list>
+</md-card>
